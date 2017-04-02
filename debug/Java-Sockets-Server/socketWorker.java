@@ -1,3 +1,6 @@
+package server;
+
+
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -20,7 +23,7 @@ public class SocketWorker extends Thread {
     PrintWriter out = null;
     String username;
     private String nomeGruppo;
-    
+    private boolean Exited = false;
     // Questa e' la funzione che viene lanciata quando il nuovo "Thread" viene generato
     public void run(){
     	
@@ -136,17 +139,19 @@ public class SocketWorker extends Thread {
         switch(risp)
         {
             case "new":
-              
+            	String arg = null;
                 try
                 {  
                     out.println("Scegli il nome del nuovo gruppo: ");
                     risp = in.readLine();
+                    out.println("Scrivi una breve descrizione sul gruppo: ");
+                    arg = in.readLine();
                 }catch(IOException e)
                 {
                     System.out.println("Ricevimento dati fallito ");
                 }
                 
-                GroupClass nuovoGruppo = new GroupClass(risp, this);
+                GroupClass nuovoGruppo = new GroupClass(risp, arg, this);
                 ServerTestoMultiThreaded.gruppi.add(nuovoGruppo);
                 nomeGruppo = risp;
                 
@@ -164,7 +169,7 @@ public class SocketWorker extends Thread {
                         {
                             ServerTestoMultiThreaded.gruppi.get(i).aggiungiUtente(this);
                             nomeGruppo = ServerTestoMultiThreaded.gruppi.get(i).getNomeGruppo();
-                                
+                            out.println("Argomento del gruppo: " + ServerTestoMultiThreaded.gruppi.get(i).getArgomento());
                         }
                     }
                 }
@@ -175,41 +180,58 @@ public class SocketWorker extends Thread {
                 }
             
         }
-            while(!line.equals("exit")){
+            GroupCommunications();
+            Exited = false;
+            Seleziona(username, in, out);
+    }
+    
+    private void GroupCommunications()
+    {
+        String line;
+        
+         while(Exited == false){
                   try{
                     line = in.readLine();
-                    //controlla se la lista utenti è richiesta
+                    
+                 
+                    
                     if(line.equals("listaUtenti"))
                     {
                             ServerTestoMultiThreaded.printUtentiFromNomeGruppo(nomeGruppo, out);
+                            GroupCommunications();
+                    }
+                    //controlla se l'argomento del gruppo � richiesto
+                    if(line.equals("argomentoGruppo"))
+                    {
+                    
+                        out.println(ServerTestoMultiThreaded.getGroupArgument(nomeGruppo));
+                         GroupCommunications();
+                                        
+                    }           
+                    
+                    if(line.equals("esciGruppo"))
+                    {
+                        ServerTestoMultiThreaded.LeaveGroup(nomeGruppo, this);
+                        Exited = true;
+                        GroupCommunications();
+                        
+                        
                     }
                     
+                    if(Exited == false)
+                    {
                     for(int i=0; i<ServerTestoMultiThreaded.gruppi.size(); i++)
                     {
                         if(ServerTestoMultiThreaded.gruppi.get(i).getNomeGruppo().equals(nomeGruppo))
                         {
-                        	if(!line.equals("exit"))
-                        	{
-                        		ServerTestoMultiThreaded.gruppi.get(i).sendMessageToGroup(line, this);
-                                break;
-                        	}
-                        	else
-                        	{
-                        		ServerTestoMultiThreaded.gruppi.get(i).sendMessageOfAbandoning(this);
-                        		for(int j=0; j<ServerTestoMultiThreaded.gruppi.get(i).getListaSocket().size(); j++)
-                        		{
-                        			if(this.equals(ServerTestoMultiThreaded.gruppi.get(i).getListaSocket().get(j)))
-                        			{
-                        				ServerTestoMultiThreaded.gruppi.get(i).rimuoviUtente(j);
-                        				break;
-                        			}
-                        		}
-                        		break;
-                        	}
+                                    
+                            ServerTestoMultiThreaded.gruppi.get(i).sendMessageToGroup(line, this);
+                              
+                      
                         }
                     }
                     
-                    
+                    }
                    } catch (IOException e) {
                     System.out.println("lettura da socket fallito");
                     try {
@@ -221,7 +243,8 @@ public class SocketWorker extends Thread {
                     }
                    }
                 }
-            Seleziona(username, in, out);
+        
+        
     }
     
     public void sendMessage(String msg)
