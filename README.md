@@ -1,4 +1,3 @@
-
 # Java-Sockets
 Sviluppo di due software in grado di comunicare tra di loro attraverso i **Sockets**
 ```
@@ -6,71 +5,71 @@ Obiettivo del progetto: Realizzare due software in grado di comunicare
 ```
 **Per saperne di più sui Sockets** --> https://docs.google.com/presentation/d/19vhath-GbtUO7ofpukJE4Opi16aTfrnurJ2lUizB0iE/edit?usp=sharing
 
-## Istruzioni
-Per replicare il progetto sul vostro computer personale. Gli allievi potranno quindi apportare modifiche ed eventualmente fonderle con il progetto principale, o in alcuni casi creare un progetto propio.
-
 ### Prerequisiti
-Java SDK (Software Development Kit) - programma per la compilazione (javac) da codice in Java a ByteCode. L'installazione comprende anche Java JRE (Java Runtime Envirorment) che fornisce la Virtual Machine (VM) su cui far eseguire il ByteCode.
-```
-E' suggerito anche l'utilizzo di netBeans IDE (Integrated Development Envirorment)
-```
+E' richiesto NetBeans IDE (Integrated Development Environment) per poter avviare le due classi Server e Client e ovviamente Java SDK (necessario per l'installazione di NetBeans).
 
 ### Installazione
-Scarica i files del progetto cliccando "Clone/Download"
-* in NetBeans crea due nuovi progetti "Java-Sockets-Client" e "Java-Sockets-Server"
-
-* estrai i files e spostali nella sub-directory "src" dei rispettivi progetti (es. Documents\NetBeansProjects\Java-Sockets-Server\src)
+- Scaricare i files del progetto cliccando "Clone/Download"
+- in NetBeans creare due nuovi progetti "Client" e "Server"
 
 ## Uso
-Dal terminale del Server:
-```
-java ServerTestoMultiThreaded <server port>
-```
-Da un terminale Client:
-```
-java clientTesto <host> <server port>
-dove:
-* host puo' essere espresso sia in forma numerica (es. 127.0.0.1) che in forma alfanumerica (es. www.nomeSito.com)
-```
-NOTA: posso collegarmi al server con quanti Clients desidero, sia su stesso computer che da terminali su computer diversi.
+Da NetBeans dopo aver creato il progetto:
+
+### Client 
+- Cliccare sul pulsante verde (Esegui),
+- Quando viene richiesto il nome dell'host (indirizzo ip/nome alfanumerico), inserire il nome dell'host e premere invio,
+- Quando viene richiesta la porta, inserire la porta e premere invio,
+- Se non stampa nessun errore la connessione è effettuata
+
+### Server 
+- Cliccare sul pulsante verde (Esegui),
+- Quando viene richiesto la porta del server, inserire il nome dell'host e premere invio,
+- Se non stampa nessun errore la connessione è effettuata
+
+NOTA: è possibile collegarsi al server con quanti Clients desidero, sia sullo stesso computer che da terminali su computer diversi.
 
 ### Esempio usando stesso computer sia per eseguire Server che multipli Clients
-Da finestra di comando esguire il Server:
+
+Da Netbeans creare un progetto java e denominarlo "Server", nel progetto appena creato inserire le classi Server scaricate e eseguire il file "ServerTestoMultiThread" (Cliccando sul pulsante verde, ed eventualmente in caso di richiesta, selezionando il file appena citato):
 ```
-cd Documents\NetBeansProjects\Java-Sockets-Server\src
-java ServerTestoMultiThreaded 1234
+- Quando viene richiesto la porta del server, inserire il numero della porta sulla quale si vogliono effettuare le connessioni e premere invio,
+- Se non stampa nessun errore la connessione è effettuata
 ```
-Da nuova finestra di comando esguire il ```primo``` Client
+Da Netbeans creare un altro progetto java e denominarlo "Client", nel progetto appena creato inserire le classi Client scaricate e eseguire il file "ClientTesto" (Cliccando sul pulsante verde, ed eventualmente in caso di richiesta, selezionando il file appena citato):
 ```
-cd Documents\NetBeansProjects\Java-Sockets-Client\src
-java client-Testo localhost 1234
+- Quando viene richiesto il nome dell'host (indirizzo ip/nome alfanumerico), inserire il nome dell'host e premere invio,
+- Quando viene richiesta la porta, inserire la porta e premere invio,
+- Se non stampa nessun errore la connessione è effettuata
+- Quando viene richiesto, scegliere il proprio NickName
 ```
-Da nuova finestra di comando esguire il ```secondo``` Client
+Da Netbeans, selezionato il progetto Client creato e eseguire di nuovo il file "ClientTesto" (Cliccando nuovamente sul pulsante verde)
+in modo da creare un altra istanza della classe Client.
 ```
-cd Documents\NetBeansProjects\Java-Sockets-Client\src
-java client-Testo localhost 1234
+NOTA:se già un istanza della classe è in esecuzione, alla nuova richiesta di esecuzione Netbeans non fermerà il processo già in esecuzione ma ne creerà un altro. 
+
+- Quando viene richiesto il nome dell'host inserire il nome dello stesso host inserito con il primo client (solo se si vuole effettuare una connessione allo stesso Server) e premere invio, 
+- Quando viene richiesta la porta, inserire la porta dello stesso host inserita con il primo client (solo se si vuole effettuare una connessione allo stesso Server) e premere invio,
+- Se non stampa nessun errore la connessione è effettuata
+- Quando viene richiesto, scegliere il proprio NickName
 ```
-## Diventa un collaboratore
-Questa e' la lista di nuove funzioni da aggiungere al progetto:
-```
-1. Di seguito alla nuova connessione di un Client con il Server,
-   richiedere il "NickName" e utilizzarlo per la visualizzazione del messaggio 
-   (invece della porta del Client come da progetto iniziale)
-```
-```
-2. Aggiungere la possibilita' di mandare un comando (es. ListaUtenti) al Server 
-   che di conseguenza restituisca la lista di tutti i Clients connessi.
-```
-```
-3. Group Chat 
-3.1. Possibilita' di iniziare una o piu' "group chat" fornendo per ogni chat il "Soggetto della discussione"
-3.2. Possibilita' di invitare uno o piu' utenti conessi a entrare nella "goup chat"
-3.3. Possibilita' di uscire dalla "group chat"
-```
-Mentre le modifiche descritte dai primi due punti risulteranno in una fusione (merge), le modifiche descritti dai punti 3 dovranno far parte di un nuovo progetto che parte da quello originario (fork).
- 
+### Chat Diretta con il Server
+Per far si che i messaggi vengano inviati direttamente al server e non ad un gruppo, subito dopo la scelta del NickName, alla richiesta "Vuoi far parte di un gruppo? (Y/N)" digitare N e premere invio. In questo modo il server riceverà direttamente i messaggi che verranno inviati. Per inviare un messaggio scriverne il testo e premere invio.
+### Chat Di Gruppo
+
+NOTA: Per poter creare una chat di gruppo funzionante, un Server deve avere più di 1 Client collegato
+
+
+
+ - 
+
+## Comandi Client
+- listaUtenti = Ottiene una lista dei client collegati al server
+- argomentoGruppo = Ottiene l'argomento della discussione del gruppo di cui si fa parte
+- esciGruppo = Uscita dal gruppo di cui si fa parte
+- Bye. = Disconnette il client dal server
+
 ## Licenza
-opensource nel modo piu' completo del termine :) senza alcuna restrizione!
+Completamente Open Source.
 
 ## Autori
 -Alessandro Ampala
@@ -80,4 +79,4 @@ opensource nel modo piu' completo del termine :) senza alcuna restrizione!
 -Gerardo Scaricaciottoli
 
 ## Ringraziamenti
-Al prof per il progetto
+Al Prof per la proposta del progetto e per il codice iniziale
