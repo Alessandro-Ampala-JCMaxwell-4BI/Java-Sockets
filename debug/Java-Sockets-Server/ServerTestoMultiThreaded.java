@@ -112,17 +112,41 @@ public class ServerTestoMultiThreaded {
     public static String printNames()
     {
         
-        StringBuilder Nomi = new StringBuilder();
+        StringBuilder Ciao = new StringBuilder();
         
         
         
         for(GroupClass c : gruppi)
         {
-            Nomi.append("Gruppo: " + c.getNomeGruppo() + "\n");
+            Ciao.append("Gruppo: " + c.getNomeGruppo() + "\n");
             
         }
         
-        return Nomi.toString();
+        return Ciao.toString();
         
         
     }
+    
+    public static String getGroupArgument(String nomeGruppo)
+    {
+        for(int i=0; i<ServerTestoMultiThreaded.gruppi.size(); i++)
+          {
+            if(ServerTestoMultiThreaded.gruppi.get(i).getNomeGruppo().equals(nomeGruppo))
+                return "Argomento del gruppo: " + ServerTestoMultiThreaded.gruppi.get(i).getArgomento();
+          }
+        return null;
+    }
+    
+    public static void LeaveGroup(String nomeGruppo,SocketWorker ToAbandon)
+    {
+         for(int i=0; i<ServerTestoMultiThreaded.gruppi.size(); i++)
+          {
+            if(ServerTestoMultiThreaded.gruppi.get(i).getNomeGruppo().equals(nomeGruppo))
+            {
+                ServerTestoMultiThreaded.gruppi.get(i).sendMessageOfAbandoning(ToAbandon);
+                ServerTestoMultiThreaded.gruppi.get(i).rimuoviUtente(ToAbandon);
+            }
+          }
+    }
+
+}
