@@ -1,3 +1,5 @@
+package server;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,23 +13,14 @@ public class GroupClass {
     
     private String NomeGruppo;
     private List<SocketWorker> listaSocket = new ArrayList<>();
+    private String argomento;
     
-    public GroupClass(String name, SocketWorker socketDaAggiungere)
+    public GroupClass(String name, String argomento, SocketWorker socketDaAggiungere)
     {
         setNomeGruppo(name);
+        setArgomento(argomento);
         listaSocket.add(socketDaAggiungere);
     }
-    
-    public void aggiungiUtente(SocketWorker socketDaAggiungere)
-    {
-        listaSocket.add(socketDaAggiungere);
-    }
-    
-    public void rimuoviUtente(int index)
-    {
-    	listaSocket.remove(index);
-    }
-    
     
     public String getNomeGruppo() {
         return NomeGruppo;
@@ -39,6 +32,26 @@ public class GroupClass {
     
     private void setNomeGruppo(String NomeGruppo) {
         this.NomeGruppo = NomeGruppo;
+    }
+    
+    public String getArgomento() {
+		return argomento;
+	}
+
+	private void setArgomento(String argomento) {
+		this.argomento = argomento;
+	}
+
+	public void aggiungiUtente(SocketWorker socketDaAggiungere)
+    {
+        listaSocket.add(socketDaAggiungere);
+    }
+    
+    public void rimuoviUtente(SocketWorker DaRimuovere)
+    {
+        int index = listaSocket.indexOf(DaRimuovere);
+        
+    	listaSocket.remove(index);
     }
     
     public void sendMessageToGroup(String msg, SocketWorker sender)
@@ -58,9 +71,11 @@ public class GroupClass {
         {
             if(c != sender)
             {
-                c.sendMessage(sender.getUsername() + "@" + sender.getNomeGruppo() + "ha abbandonato " + sender.getNomeGruppo());
+                c.sendMessage(sender.getUsername() + " ha abbandonato il gruppo " + sender.getNomeGruppo());
             }
         }
     }
+    
+    
     
 }
