@@ -52,15 +52,24 @@ NOTA:se già un istanza della classe è in esecuzione, alla nuova richiesta di e
 - Se non stampa nessun errore la connessione è effettuata
 - Quando viene richiesto, scegliere il proprio NickName
 ```
-### Chat Diretta con il Server
-Per far si che i messaggi vengano inviati direttamente al server e non ad un gruppo, subito dopo la scelta del NickName, alla richiesta "Vuoi far parte di un gruppo? (Y/N)" digitare 'N' e premere invio. In questo modo il server riceverà direttamente i messaggi che verranno inviati. Per inviare un messaggio scriverne il testo e premere invio.
+### Istruzioni Chat Diretta con il Server
 
-### Chat Di Gruppo
+- dopo la scelta del NickName, alla richiesta "Vuoi far parte di un gruppo? (Y/N)" digitare 'N' e premere invio. 
+- In questo modo il server riceverà direttamente i messaggi che verranno inviati. 
+- Per inviare un messaggio scriverne il testo e premere invio.
+
+### Istruzioni Chat Di Gruppo
 NOTA: Per poter creare una chat di gruppo funzionante, un Server deve avere più di 1 Client collegato
-Per effettuare una chat di gruppo, alla richiesta "Vuoi far parte di un gruppo? (Y/N)" digitare 'Y' e premere invio. Verrà stampato il numero di gruppi esistenti e i nomi degli stessi. Scrivere il nome del gruppo in cui si vuole entrare e premere invio (nel caso in cui si volesse creare un nuovo gruppo digitare la parola "new" e premere invio. In seguito verranno richiesti il nome del gruppo e l'argomento dello stesso. Digitarli e premere invio).
-Ora basterà scrivere un messaggio e premere invio per far si che arrivi a tutti i partecipanti del gruppo!
+
+- Dopo aver inserito il Nickname, alla richiesta "Vuoi far parte di un gruppo? (Y/N)" digitare 'Y' e premere invio. 
+- Verrà stampato il numero di gruppi esistenti e i nomi degli stessi. 
+- Scrivere il nome del gruppo in cui si vuole entrare e premere invio (nel caso in cui si volesse creare un nuovo gruppo digitare la        parola "new" e premere invio) 
+- Se si e' scelto di creare un gruppo verranno richiesti il nome del gruppo e l'argomento dello stesso. Digitarli e premere invio.
+- Ora basterà scrivere un messaggio e premere invio per far si che arrivi a tutti i partecipanti del gruppo!
+
 
 ## Comandi Client
+
 - listaUtenti = Ottiene una lista dei client collegati al server
 - argomentoGruppo = Ottiene l'argomento della discussione del gruppo di cui si fa parte 
 - esciGruppo = Uscita dal gruppo di cui si fa parte
